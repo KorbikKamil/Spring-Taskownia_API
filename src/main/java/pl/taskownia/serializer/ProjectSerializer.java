@@ -21,12 +21,15 @@ public class ProjectSerializer extends StdSerializer<Project> {
         jsonGenerator.writeNumberField("id", project.getId());
         jsonGenerator.writeStringField("title", project.getTitle());
         jsonGenerator.writeStringField("description", project.getDescription());
-        jsonGenerator.writeNumberField("author_id", project.getAuthor().getId());
-        jsonGenerator.writeStringField("author_username", project.getAuthor().getUsername());
-        jsonGenerator.writeNumberField("maker_id", project.getMaker().getId());
-        jsonGenerator.writeStringField("maker_username", project.getMaker().getUsername());
-        jsonGenerator.writeObjectField("created_at", project.getCreated_at());
-        jsonGenerator.writeObjectField("updated_at", project.getUpdated_at());
+        jsonGenerator.writeNumberField("authorId", project.getAuthor().getId());
+        jsonGenerator.writeStringField("authorUsername", project.getAuthor().getUsername());
+        jsonGenerator.writeObjectField("projectStatus", project.getProjectStatus());
+        if(project.getMaker()!=null){
+            jsonGenerator.writeNumberField("makerId", project.getMaker().getId());
+            jsonGenerator.writeStringField("makerUsername", project.getMaker().getUsername());
+        }
+        jsonGenerator.writeObjectField("createdAt", project.getCreated_at());
+        jsonGenerator.writeObjectField("updatedAt", project.getUpdated_at());
         jsonGenerator.writeEndObject();
     }
 }

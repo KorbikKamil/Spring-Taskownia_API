@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/user/register").permitAll()
+                .antMatchers("/user/inuse").permitAll()
                 .antMatchers("/chat/get-last").permitAll()
                 // Disallow everything else..
                 .anyRequest().authenticated();

@@ -1,11 +1,16 @@
 package pl.taskownia.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import pl.taskownia.serializer.ProjectSerializer;
+import pl.taskownia.serializer.UserSerializer;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "projects")
+@JsonSerialize(using = ProjectSerializer.class)
 public class Project {
 
     @Id
@@ -21,17 +26,17 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;
-    @ManyToMany(mappedBy = "projectInterests") //TODO: other, maybe need JoinColumn
-    private List<User> usersInterested;
+//    @ManyToMany(mappedBy = "projectInterests") //TODO: other, maybe need JoinColumn
+//    private List<User> usersInterested;
     @ManyToOne
     @JoinColumn(name = "maker_id")
     private User maker;
     @Column(nullable = false)
     @Temporal(value= TemporalType.TIMESTAMP)
-    private Date created_at;
+    private Date createdAt;
     @Column(nullable = false)
     @Temporal(value= TemporalType.TIMESTAMP)
-    private Date updated_at;
+    private Date updatedAt;
 
     public enum ProjectStatus {
         NEW, IN_PROGRESS, FINISHED
@@ -68,13 +73,13 @@ public class Project {
         this.projectStatus = projectStatus;
     }
 
-    public List<User> getUsersInterested() {
-        return usersInterested;
-    }
-
-    public void setUsersInterested(List<User> usersInterested) {
-        this.usersInterested = usersInterested;
-    }
+//    public List<User> getUsersInterested() {
+//        return usersInterested;
+//    }
+//
+//    public void setUsersInterested(List<User> usersInterested) {
+//        this.usersInterested = usersInterested;
+//    }
 
     public User getAuthor() {
         return author;
@@ -93,18 +98,18 @@ public class Project {
     }
 
     public Date getCreated_at() {
-        return created_at;
+        return createdAt;
     }
 
     public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+        this.createdAt = created_at;
     }
 
     public Date getUpdated_at() {
-        return updated_at;
+        return updatedAt;
     }
 
     public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+        this.updatedAt = updated_at;
     }
 }

@@ -34,6 +34,7 @@ public class ProjectService {
 
         projectRequest.setAuthor(u);
         projectRequest.setMaker(null);
+        projectRequest.setProjectStatus(Project.ProjectStatus.NEW);
         projectRequest.setCreated_at(new Date(System.currentTimeMillis()));
         projectRequest.setUpdated_at(new Date(System.currentTimeMillis()));
         projectRepository.save(projectRequest);
@@ -53,6 +54,7 @@ public class ProjectService {
             return new ResponseEntity<>("Author can't take project!", HttpStatus.CONFLICT);
         }
         p.setMaker(u);
+        p.setProjectStatus(Project.ProjectStatus.IN_PROGRESS);
         projectRepository.save(p);
         return ResponseEntity.ok().build();
     }

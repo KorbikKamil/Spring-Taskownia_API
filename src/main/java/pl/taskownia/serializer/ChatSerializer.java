@@ -22,8 +22,8 @@ public class ChatSerializer extends StdSerializer<Chat> {
 //        jsonGenerator.writeNumberField("id", chat.getId());
         jsonGenerator.writeStringField("message", chat.getMessage());
         jsonGenerator.writeObjectField("date", chat.getDate());
-        jsonGenerator.writeNumberField("user_id", chat.getUser().getId());
-        jsonGenerator.writeStringField("user_username", chat.getUser().getUsername());
+        jsonGenerator.writeNumberField("userId", chat.getUser().getId());
+        jsonGenerator.writeStringField("userUsername", chat.getUser().getUsername());
 //        jsonGenerator.writeObjectField("user_roles", chat.getUser().getRoles());
         jsonGenerator.writeEndObject();
     }

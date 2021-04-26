@@ -131,20 +131,28 @@ public class UserService {
         if (u.getRoles().contains(Role.ROLE_CLIENT_AUTHOR)) {
             u.setMakerStatus(User.MakerStatus.NEUTRAL);
         }
-        if (u.getRoles().contains(Role.ROLE_CLIENT_MAKER)) {
+        if (u.getRoles().contains(Role.ROLE_CLIENT_MAKER) && userDataUpdate.getMakerStatus() != null) {
             u.setMakerStatus(userDataUpdate.getMakerStatus());
         }
-        u.setEmail(userDataUpdate.getEmail());
 
-        userPersonalData.setFirstName(userDataUpdate.getFirstName());
-        userPersonalData.setLastName(userDataUpdate.getLastName());
-        userPersonalData.setPhone(userDataUpdate.getPhone());
-        userPersonalData.setBirthDate(userDataUpdate.getBirthDate());
-
-        userAddress.setCity(userDataUpdate.getCity());
-        userAddress.setState(userDataUpdate.getState());
-        userAddress.setCountry(userDataUpdate.getCountry());
-        userAddress.setZipCode(userDataUpdate.getZipCode());
+        if (userDataUpdate.getEmail() != null)
+            u.setEmail(userDataUpdate.getEmail());
+        if (userDataUpdate.getFirstName() != null)
+            userPersonalData.setFirstName(userDataUpdate.getFirstName());
+        if (userDataUpdate.getLastName() != null)
+            userPersonalData.setLastName(userDataUpdate.getLastName());
+        if (userDataUpdate.getPhone() != null)
+            userPersonalData.setPhone(userDataUpdate.getPhone());
+        if (userDataUpdate.getBirthDate() != null)
+            userPersonalData.setBirthDate(userDataUpdate.getBirthDate());
+        if (userDataUpdate.getCity() != null)
+            userAddress.setCity(userDataUpdate.getCity());
+        if (userDataUpdate.getState() != null)
+            userAddress.setState(userDataUpdate.getState());
+        if (userDataUpdate.getCountry() != null)
+            userAddress.setCountry(userDataUpdate.getCountry());
+//        if (userDataUpdate.getZipCode() != null)
+//            userAddress.setZipCode(userDataUpdate.getZipCode());
 
         userRepository.save(u);
         return u;
@@ -152,7 +160,7 @@ public class UserService {
 
     public ResponseEntity<?> isInUse(String username, String email) {
         if (userRepository.findByEmail(email) != null || userRepository.findByUsername(username) != null) {
-            return new ResponseEntity<>("Email or username is taken", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Email or/and username are taken.", HttpStatus.CONFLICT);
         }
         return ResponseEntity.ok().build();
     }

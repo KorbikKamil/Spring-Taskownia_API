@@ -19,8 +19,7 @@ public class UserPersonalData {
     @Column(nullable = true)
     private String phone;
     @Column(nullable = true)
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
+    private String birthDate;
 //    @Column(nullable = true) //TODO: no needed - will use User.updated_at
 //    @Temporal(value= TemporalType.TIMESTAMP)
 //    private Date created_at;
@@ -67,11 +66,11 @@ public class UserPersonalData {
         this.phone = phone;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

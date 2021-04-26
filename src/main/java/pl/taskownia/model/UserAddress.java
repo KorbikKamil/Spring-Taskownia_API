@@ -18,8 +18,8 @@ public class UserAddress {
     private String state;
     @Column(nullable = true)
     private String country;
-    @Column(nullable = true)
-    private String zipCode;
+//    @Column(nullable = true)
+//    private String zipCode;
 //    @Column(nullable = true) //TODO: no needed - will use User.updated_at
 //    @Temporal(value= TemporalType.TIMESTAMP)
 //    private Date created_at;
@@ -66,13 +66,13 @@ public class UserAddress {
         this.country = country;
     }
 
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
+//    public String getZipCode() {
+//        return zipCode;
+//    }
+//
+//    public void setZipCode(String zipCode) {
+//        this.zipCode = zipCode;
+//    }
 
 //    public Date getCreated_at() {
 //        return created_at;

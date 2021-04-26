@@ -2,19 +2,19 @@ package pl.taskownia.data;
 
 import pl.taskownia.model.User;
 
-import java.util.Date;
-
 public class UserDataUpdate {
     private String email;
     private User.MakerStatus makerStatus;
     private String firstName;
     private String lastName;
     private String phone;
-    private Date birthDate;
+    private String birthDate;
     private String city;
     private String state;
     private String country;
     private String zipCode;
+
+
 
     public String getEmail() {
         return email;
@@ -56,11 +56,11 @@ public class UserDataUpdate {
         this.phone = phone;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

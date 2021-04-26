@@ -49,18 +49,18 @@ public class User {
     private List<Project> projectsAuthor = new ArrayList<>();
     @OneToMany(mappedBy = "maker")
     private List<Project> projectsMaker = new ArrayList<>();
-    @ManyToMany
-    @JoinTable(
-            name = "project_interest",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id"))
-    private List<Project> projectInterests = new ArrayList<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "project_interest",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "project_id"))
+//    private List<Project> projectInterests = new ArrayList<>();
     @Column(nullable = false)
     @Temporal(value= TemporalType.TIMESTAMP)
-    private Date created_at;
+    private Date createdAt;
     @Column(nullable = false)
     @Temporal(value= TemporalType.TIMESTAMP)
-    private Date updated_at;
+    private Date updatedAt;
 //TODO: add relation for projectInterest
 //    private enum AppRole {
 //        AUTHOR, MAKER
@@ -184,19 +184,27 @@ public class User {
         this.projectsMaker = projectsMaker;
     }
 
+//    public List<Project> getProjectInterests() {
+//        return projectInterests;
+//    }
+//
+//    public void setProjectInterests(List<Project> projectInterests) {
+//        this.projectInterests = projectInterests;
+//    }
+
     public Date getCreated_at() {
-        return created_at;
+        return createdAt;
     }
 
     public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+        this.createdAt = created_at;
     }
 
     public Date getUpdated_at() {
-        return updated_at;
+        return updatedAt;
     }
 
     public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+        this.updatedAt = updated_at;
     }
 }

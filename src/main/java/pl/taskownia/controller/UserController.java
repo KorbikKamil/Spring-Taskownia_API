@@ -25,7 +25,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String username,
-                        @RequestParam String password) {
+                                   @RequestParam String password) {
         return userService.login(username, password);
     }
 
@@ -36,14 +36,14 @@ public class UserController {
 
     @PostMapping("/change-pwd")
     public ResponseEntity<?> chgPwd(HttpServletRequest r, @RequestParam String oldPass,
-                         @RequestParam String newPass) {
+                                    @RequestParam String newPass) {
         return userService.chgPass(r, oldPass, newPass);
     }
 
     @PostMapping("/change-pwd-admin")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> chgPwdAdm(HttpServletRequest r, @RequestParam String username,
-                            @RequestParam String newPass) {
+                                       @RequestParam String newPass) {
         return userService.chgPassAdmin(r, username, newPass);
     }
 
@@ -64,7 +64,7 @@ public class UserController {
     }
 
     @GetMapping("/view")
-    public User getOtherUserDataByUsername(@RequestParam String username){
+    public User getOtherUserDataByUsername(@RequestParam String username) {
         return userService.getOtherUserDataByUsername(username);
     }
 
@@ -84,8 +84,8 @@ public class UserController {
     }
 
     @PostMapping("/inuse")
-    public ResponseEntity<?> isInUse(@RequestParam String username,
-                          @RequestParam String email) {
-        return userService.isInUse(username,email);
+    public ResponseEntity<?> isInUse(@RequestParam(required = false) String username,
+                                     @RequestParam(required = false) String email) {
+        return userService.isInUse(username, email);
     }
 }

@@ -9,6 +9,7 @@ import pl.taskownia.model.Chat;
 import pl.taskownia.service.ChatService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @RestController
@@ -18,9 +19,13 @@ public class ChatController {
     private ChatService chatService;
 
     @GetMapping("/get-last")
-    public Page<Chat> getLastChats(@RequestParam(required = false) Integer howMany) throws JsonProcessingException {
-        if(howMany==null||howMany==0) { howMany = 10; }
+    public Page<Chat> getLastChats(@RequestParam(required = false, defaultValue = "10") Integer howMany) {
         return chatService.getLastChat(howMany);
+    }
+
+    @GetMapping("/all")
+    public List<Chat> getAll() {
+        return chatService.getAll();
     }
 
     @PostMapping("/sent")
