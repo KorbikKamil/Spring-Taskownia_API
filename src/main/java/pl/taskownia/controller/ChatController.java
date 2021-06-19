@@ -1,6 +1,5 @@
 package pl.taskownia.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +29,6 @@ public class ChatController {
 
     @PostMapping("/sent")
     public ResponseEntity<?> sentMessage(HttpServletRequest r, @RequestParam String msg) {
-        return chatService.sent(r,msg);
+        return chatService.sent(r, msg);
     }
 }

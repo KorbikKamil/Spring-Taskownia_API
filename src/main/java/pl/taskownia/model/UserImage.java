@@ -1,7 +1,14 @@
 package pl.taskownia.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "images")
 public class UserImage {
@@ -20,45 +27,4 @@ public class UserImage {
 //    @Column(nullable = true)
 //    @Temporal(value= TemporalType.TIMESTAMP)
 //    private Date updated_at;
-
-    public UserImage() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getImage_path() {
-        return image_path;
-    }
-
-    public void setImage_path(String image_path) {
-        this.image_path = image_path;
-    }
-//
-//    public Date getCreated_at() {
-//        return created_at;
-//    }
-//
-//    public void setCreated_at(Date created_at) {
-//        this.created_at = created_at;
-//    }
-//
-//    public Date getUpdated_at() {
-//        return updated_at;
-//    }
-//
-//    public void setUpdated_at(Date updated_at) {
-//        this.updated_at = updated_at;
-//    }
-
-
 }

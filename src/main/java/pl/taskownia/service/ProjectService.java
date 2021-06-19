@@ -35,8 +35,8 @@ public class ProjectService {
         projectRequest.setAuthor(u);
         projectRequest.setMaker(null);
         projectRequest.setProjectStatus(Project.ProjectStatus.NEW);
-        projectRequest.setCreated_at(new Date(System.currentTimeMillis()));
-        projectRequest.setUpdated_at(new Date(System.currentTimeMillis()));
+        projectRequest.setCreatedAt(new Date(System.currentTimeMillis()));
+        projectRequest.setUpdatedAt(new Date(System.currentTimeMillis()));
         projectRepository.save(projectRequest);
         return ResponseEntity.ok().build();
     }
@@ -44,17 +44,27 @@ public class ProjectService {
     public ResponseEntity<?> takeProject(HttpServletRequest r, Long projId) {
         User u = userRepository.findByUsername(jwtTokenProvider.getLogin(jwtTokenProvider.resolveToken(r)));
         Project p = projectRepository.findById(projId).orElse(null);
-        if(p == null) {
+        if (p == null) {
             return new ResponseEntity<>("Project id is wrong!", HttpStatus.CONFLICT);
         }
-        if(p.getMaker()!=null) {
+        if (p.getMaker() != null) {
             return new ResponseEntity<>("Project already taken!", HttpStatus.CONFLICT);
         }
-        if(p.getAuthor().getId()==u.getId()) {
+        if (p.getAuthor().getId() == u.getId()) {
             return new ResponseEntity<>("Author can't take project!", HttpStatus.CONFLICT);
         }
         p.setMaker(u);
         p.setProjectStatus(Project.ProjectStatus.IN_PROGRESS);
+        projectRepository.save(p);
+        return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<?> finishProject(Long projId) {
+        Project p = projectRepository.findById(projId).orElse(null);
+        if (p == null) {
+            return new ResponseEntity<>("Project id is wrong!", HttpStatus.CONFLICT);
+        }
+        p.setProjectStatus(Project.ProjectStatus.FINISHED);
         projectRepository.save(p);
         return ResponseEntity.ok().build();
     }

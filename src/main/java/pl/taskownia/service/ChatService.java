@@ -37,7 +37,7 @@ public class ChatService {
         chat.setMessage(msg);
         chat.setDate(new Date(System.currentTimeMillis()));
         chatRepository.save(chat);
-        return new ResponseEntity<>(chatRepository.findAll() ,HttpStatus.OK);
+        return new ResponseEntity<>(chatRepository.findAll(), HttpStatus.OK);
     }
 
     public Page<Chat> getLastChat(Integer howMany) {
@@ -46,7 +46,7 @@ public class ChatService {
         return chatPage;
     }
 
-    public List<Chat> getAll(){
+    public List<Chat> getAll() {
         return chatRepository.findAll();
     }
 }

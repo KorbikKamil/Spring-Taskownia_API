@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.taskownia.serializer.ProjectSerializer;
+import pl.taskownia.serializer.ReviewSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,36 +14,29 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "projects")
-@JsonSerialize(using = ProjectSerializer.class)
-public class Project {
+@Table(name = "reviews")
+@JsonSerialize(using = ReviewSerializer.class)
+public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_project")
+    @Column(name = "id_review")
     private Long id;
-    @Column(nullable = false)
-    private String title;
-    @Column(nullable = false, length = 10000)
-    private String description;
-    @Column(nullable = false)
-    private ProjectStatus projectStatus;
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;
-    //    @ManyToMany(mappedBy = "projectInterests") //TODO: other, maybe need JoinColumn
-//    private List<User> usersInterested;
     @ManyToOne
-    @JoinColumn(name = "maker_id")
-    private User maker;
+    @JoinColumn(name = "reviewed_id")
+    private User reviewed;
+    @Column(nullable = false, length = 10000)
+    private String comment;
     @Column(nullable = false)
+    private Integer rating;
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdAt;
     @Column(nullable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedAt;
-
-    public enum ProjectStatus {
-        NEW, IN_PROGRESS, FINISHED
-    }
+    @Transient
+    private Long reviewedId;
 }

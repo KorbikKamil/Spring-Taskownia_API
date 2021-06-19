@@ -9,7 +9,9 @@ import java.io.IOException;
 
 public class ProjectSerializer extends StdSerializer<Project> {
 
-    public ProjectSerializer(){this(null);}
+    public ProjectSerializer() {
+        this(null);
+    }
 
     public ProjectSerializer(Class<Project> t) {
         super(t);
@@ -24,12 +26,12 @@ public class ProjectSerializer extends StdSerializer<Project> {
         jsonGenerator.writeNumberField("authorId", project.getAuthor().getId());
         jsonGenerator.writeStringField("authorUsername", project.getAuthor().getUsername());
         jsonGenerator.writeObjectField("projectStatus", project.getProjectStatus());
-        if(project.getMaker()!=null){
+        if (project.getMaker() != null) {
             jsonGenerator.writeNumberField("makerId", project.getMaker().getId());
             jsonGenerator.writeStringField("makerUsername", project.getMaker().getUsername());
         }
-        jsonGenerator.writeObjectField("createdAt", project.getCreated_at());
-        jsonGenerator.writeObjectField("updatedAt", project.getUpdated_at());
+        jsonGenerator.writeObjectField("createdAt", project.getCreatedAt());
+        jsonGenerator.writeObjectField("updatedAt", project.getUpdatedAt());
         jsonGenerator.writeEndObject();
     }
 }

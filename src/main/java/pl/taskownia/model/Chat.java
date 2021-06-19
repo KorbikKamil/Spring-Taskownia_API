@@ -1,11 +1,17 @@
 package pl.taskownia.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.taskownia.serializer.ChatSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "chat")
 @JsonSerialize(using = ChatSerializer.class)
@@ -20,37 +26,6 @@ public class Chat {
     @JoinColumn(name = "user_id")
     private User user;
     @Column(nullable = false)
-    @Temporal(value= TemporalType.TIMESTAMP)
+    @Temporal(value = TemporalType.TIMESTAMP)
     private Date date;
-
-    public Chat() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }

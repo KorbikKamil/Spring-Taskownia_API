@@ -15,7 +15,6 @@ public class UserDataUpdate {
     private String zipCode;
 
 
-
     public String getEmail() {
         return email;
     }
