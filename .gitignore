@@ -34,3 +34,4 @@ build/
 
 
 user-images/
+src/main/resources/application.properties

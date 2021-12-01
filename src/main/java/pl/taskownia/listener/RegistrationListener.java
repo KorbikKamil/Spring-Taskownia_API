@@ -17,6 +17,12 @@ import java.util.UUID;
 public class RegistrationListener implements ApplicationListener<OnRegistrationEvent> {
     private static String httpType;
     private static String serverAddress;
+    private static String emailAddress;
+
+    @Value("${app.email-address}")
+    public void setEmailAddress(String emailAddressTemp) {
+        emailAddress = emailAddressTemp;
+    }
 
     @Value("${app.http}")
     public void setHttpType(String httpTypeTemp) {
@@ -53,6 +59,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationE
         System.out.println("3");
         email.setTo(recipientAddress);
         email.setSubject(subject);
+        email.setFrom(emailAddress);
         email.setText(message + "\r\n" + httpType+ "://"+ serverAddress + confirmationUrl); //FIXME address of website and backend
         System.out.println("3.5");
         javaMailSender.send(email);
