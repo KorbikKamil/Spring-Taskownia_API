@@ -20,7 +20,6 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_chat")
     private Long id;
-    @Column(nullable = true)
     private String message;
     @ManyToOne
     @JoinColumn(name = "user_id")

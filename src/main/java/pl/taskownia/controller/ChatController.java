@@ -1,6 +1,6 @@
 package pl.taskownia.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/chat")
+@RequiredArgsConstructor
 public class ChatController {
-    @Autowired
-    private ChatService chatService;
+
+    private final ChatService chatService;
 
     @GetMapping("/get-last")
     public Page<Chat> getLastChats(@RequestParam(required = false, defaultValue = "10") Integer howMany) {

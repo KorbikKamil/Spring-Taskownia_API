@@ -1,6 +1,6 @@
 package pl.taskownia.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -11,20 +11,15 @@ import pl.taskownia.model.User;
 import pl.taskownia.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.ResultSet;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    private UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String username,
@@ -104,7 +99,7 @@ public class UserController {
     }
 
     @PostMapping("/review/add")
-    public ResponseEntity<?> addReview(HttpServletRequest r, @RequestBody Review review){
+    public ResponseEntity<?> addReview(HttpServletRequest r, @RequestBody Review review) {
         return userService.addReview(r, review);
     }
 }

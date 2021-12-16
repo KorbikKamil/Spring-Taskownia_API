@@ -8,7 +8,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import pl.taskownia.event.OnRegistrationEvent;
 import pl.taskownia.model.User;
-import pl.taskownia.serializer.UserSerializer;
 import pl.taskownia.service.UserService;
 
 import java.util.UUID;
@@ -60,7 +59,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationE
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setFrom(emailAddress);
-        email.setText(message + "\r\n" + httpType+ "://"+ serverAddress + confirmationUrl); //FIXME address of website and backend
+        email.setText(message + "\r\n" + httpType + "://" + serverAddress + confirmationUrl); //FIXME address of website and backend
         System.out.println("3.5");
         javaMailSender.send(email);
         System.out.println("4");

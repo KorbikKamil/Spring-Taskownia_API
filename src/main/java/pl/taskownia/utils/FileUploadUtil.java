@@ -2,11 +2,14 @@ package pl.taskownia.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Component
 public class FileUploadUtil {
@@ -21,18 +24,17 @@ public class FileUploadUtil {
     }
 
     public static Boolean uploadFile(String filename, MultipartFile multipartFile) {
-        Path path = Paths.get(fileUploadsPath+'/');
+        Path path = Paths.get(fileUploadsPath + '/');
 
         try {
             if (!Files.exists(path))
                 Files.createDirectories(path);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
 
-        try(InputStream inputStream = multipartFile.getInputStream()) {
+        try (InputStream inputStream = multipartFile.getInputStream()) {
             Path filePath = path.resolve(filename);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {

@@ -1,9 +1,8 @@
 package pl.taskownia.service;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import pl.taskownia.captcha.ReCaptchaResponse;
 import pl.taskownia.data.UserDataUpdate;
 import pl.taskownia.event.OnRegistrationEvent;
 import pl.taskownia.model.*;
@@ -26,35 +24,20 @@ import pl.taskownia.utils.FileUploadUtil;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ReviewRepository reviewRepository;
-
-    @Autowired
-    private AccountConfirmationTokenRepository accountConfirmationTokenRepository;
-
-    @Autowired
-    ApplicationEventPublisher applicationEventPublisher;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final RestTemplate restTemplate;
+    private final UserRepository userRepository;
+    private final ReviewRepository reviewRepository;
+    private final AccountConfirmationTokenRepository accountConfirmationTokenRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final AuthenticationManager authenticationManager;
 
     public ResponseEntity<?> login(String uname, String pass) {
         try {
@@ -255,7 +238,7 @@ public class UserService {
     public ResponseEntity<?> addReview(HttpServletRequest request, Review review) {
         User u = userRepository.findByUsername(jwtTokenProvider.getLogin(jwtTokenProvider.resolveToken(request)));
         User rev = userRepository.findById(review.getReviewedId()).orElse(null);
-        if(rev==null)
+        if (rev == null)
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         review.setAuthor(u);
         review.setReviewed(rev);

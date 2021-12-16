@@ -1,6 +1,6 @@
 package pl.taskownia.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/project")
+@RequiredArgsConstructor
 public class ProjectController {
-    @Autowired
-    private ProjectService projectService;
+
+    private final ProjectService projectService;
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE) //TODO: get one page of projects
     public List<Project> getProjects() {

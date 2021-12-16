@@ -1,6 +1,6 @@
 package pl.taskownia.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,16 +18,12 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProjectService {
 
-    @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+    private final ProjectRepository projectRepository;
+    private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     public ResponseEntity<?> newProject(HttpServletRequest r, Project projectRequest) {
         User u = userRepository.findByUsername(jwtTokenProvider.getLogin(jwtTokenProvider.resolveToken(r)));
@@ -86,8 +82,7 @@ public class ProjectService {
     }
 
     public Page<Project> getLastProjects(Integer howMany) {
-        Page<Project> projectPage = projectRepository.findAll(
+        return projectRepository.findAll(
                 PageRequest.of(0, howMany, Sort.by(Sort.Direction.DESC, "id")));
-        return projectPage;
     }
 }
