@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.taskownia.data.ChangePasswordData;
+import pl.taskownia.data.UserCredentials;
 import pl.taskownia.data.UserDataUpdate;
 import pl.taskownia.model.Review;
 import pl.taskownia.model.User;
@@ -22,9 +24,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String username,
-                                   @RequestParam String password) {
-        return userService.login(username, password);
+    public ResponseEntity<?> login(@RequestBody UserCredentials userCredentials) {
+        return userService.login(userCredentials.getUsername(), userCredentials.getPassword());
     }
 
     @PostMapping("/register")
@@ -33,16 +34,14 @@ public class UserController {
     }
 
     @PostMapping("/change-pwd")
-    public ResponseEntity<?> chgPwd(HttpServletRequest r, @RequestParam String oldPass,
-                                    @RequestParam String newPass) {
-        return userService.chgPass(r, oldPass, newPass);
+    public ResponseEntity<?> chgPwd(HttpServletRequest r, @RequestBody ChangePasswordData changePasswordData) {
+        return userService.chgPass(r, changePasswordData.getOldPassword(), changePasswordData.getNewPassword());
     }
 
     @PostMapping("/change-pwd-admin")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<?> chgPwdAdm(HttpServletRequest r, @RequestParam String username,
-                                       @RequestParam String newPass) {
-        return userService.chgPassAdmin(r, username, newPass);
+    public ResponseEntity<?> chgPwdAdm(HttpServletRequest r, @RequestBody UserCredentials userCredentials) {
+        return userService.chgPassAdmin(r, userCredentials.getUsername(), userCredentials.getPassword());
     }
 
     @GetMapping("/all")
