@@ -104,7 +104,7 @@ public class UserService {
             return ResponseEntity.ok("Pomyślnie aktywowano konto, proszę sie zalogować!");
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("Cos poszlo zle", HttpStatus.BAD_REQUEST); //FIXME KORBAS KODZIK
+            return new ResponseEntity<>("Cos poszlo zle", HttpStatus.BAD_REQUEST);
         }
     }
 

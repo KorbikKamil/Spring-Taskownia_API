@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.taskownia.model.Project;
+import pl.taskownia.model.ProjectChat;
 import pl.taskownia.service.ProjectService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +46,11 @@ public class ProjectController {
     @GetMapping(path = "/my-maker", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Project> getMyProjectsMaker(HttpServletRequest r) {
         return projectService.getAllMyProjectsMaker(r);
+    }
+
+    @PostMapping(path = "/{id}/send-message", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> sendMessage(HttpServletRequest r, @PathVariable Long id, @RequestBody ProjectChat message) {
+        return projectService.sendMessage(r, id, message);
     }
 
 }

@@ -7,8 +7,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pl.taskownia.data.ProjectChatResponse;
 import pl.taskownia.model.Project;
+import pl.taskownia.model.ProjectChat;
 import pl.taskownia.model.User;
+import pl.taskownia.repository.ProjectChatRepository;
 import pl.taskownia.repository.ProjectRepository;
 import pl.taskownia.repository.UserRepository;
 import pl.taskownia.security.JwtTokenProvider;
@@ -23,11 +26,11 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
+    private final ProjectChatRepository projectChatRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     public ResponseEntity<?> newProject(HttpServletRequest r, Project projectRequest) {
         User u = userRepository.findByUsername(jwtTokenProvider.getLogin(jwtTokenProvider.resolveToken(r)));
-
         projectRequest.setAuthor(u);
         projectRequest.setMaker(null);
         projectRequest.setProjectStatus(Project.ProjectStatus.NEW);
@@ -84,5 +87,24 @@ public class ProjectService {
     public Page<Project> getLastProjects(Integer howMany) {
         return projectRepository.findAll(
                 PageRequest.of(0, howMany, Sort.by(Sort.Direction.DESC, "id")));
+    }
+
+    public ResponseEntity<?> sendMessage(HttpServletRequest r, Long id, ProjectChat message) {
+        User u = userRepository.findByUsername(jwtTokenProvider.getLogin(jwtTokenProvider.resolveToken(r)));
+        Project project = projectRepository.findById(id).orElse(null);
+        if (project == null) {
+            return new ResponseEntity<>("Project id is wrong!", HttpStatus.CONFLICT);
+        }
+
+        message.setProject(project);
+        message.setUser(u);
+        message.setDate(new Date(System.currentTimeMillis()));
+
+        projectChatRepository.save(message);
+
+        ProjectChatResponse response = new ProjectChatResponse();
+        response.setProjectMessages(project.getMessages());
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

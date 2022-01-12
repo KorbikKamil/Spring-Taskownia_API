@@ -1,5 +1,6 @@
 package pl.taskownia.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +10,9 @@ import pl.taskownia.serializer.ProjectSerializer;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -37,8 +40,10 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;
-    //    @ManyToMany(mappedBy = "projectInterests") //TODO: other, maybe need JoinColumn
-//    private List<User> usersInterested;
+
+    @OneToMany(mappedBy = "project")
+    @JsonProperty("project_messages")
+    private List<ProjectChat> messages = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "maker_id")

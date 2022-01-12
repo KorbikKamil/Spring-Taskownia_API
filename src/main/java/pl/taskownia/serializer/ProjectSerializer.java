@@ -30,6 +30,7 @@ public class ProjectSerializer extends StdSerializer<Project> {
             jsonGenerator.writeNumberField("makerId", project.getMaker().getId());
             jsonGenerator.writeStringField("makerUsername", project.getMaker().getUsername());
         }
+        jsonGenerator.writeObjectField("projectMessages", project.getMessages());
         jsonGenerator.writeObjectField("createdAt", project.getCreatedAt());
         jsonGenerator.writeObjectField("updatedAt", project.getUpdatedAt());
         jsonGenerator.writeEndObject();

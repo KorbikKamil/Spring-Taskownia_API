@@ -82,7 +82,7 @@ public class UserController {
     //TODO: change personal image here or other request? For me other request
     @PostMapping("/update-data")
     public User updateData(HttpServletRequest r, @RequestBody UserDataUpdate userDataUpdate) {
-        return userService.updateData(r, userDataUpdate); //FIXME zrobic
+        return userService.updateData(r, userDataUpdate);
     }
 
     @PostMapping("/upload-image")
