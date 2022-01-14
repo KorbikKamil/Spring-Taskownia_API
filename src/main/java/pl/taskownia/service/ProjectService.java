@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import pl.taskownia.data.ProjectChatResponse;
 import pl.taskownia.model.Project;
 import pl.taskownia.model.ProjectChat;
+import pl.taskownia.model.ProjectReview;
 import pl.taskownia.model.User;
 import pl.taskownia.repository.ProjectChatRepository;
 import pl.taskownia.repository.ProjectRepository;
+import pl.taskownia.repository.ProjectReviewRepository;
 import pl.taskownia.repository.UserRepository;
 import pl.taskownia.security.JwtTokenProvider;
 
@@ -25,6 +27,7 @@ import java.util.List;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final ProjectReviewRepository projectReviewRepository;
     private final UserRepository userRepository;
     private final ProjectChatRepository projectChatRepository;
     private final JwtTokenProvider jwtTokenProvider;
@@ -58,12 +61,16 @@ public class ProjectService {
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<?> finishProject(Long projId) {
-        Project p = projectRepository.findById(projId).orElse(null);
+    public ResponseEntity<?> finishProject(Long id, ProjectReview review) {
+        Project p = projectRepository.findById(id).orElse(null);
         if (p == null) {
             return new ResponseEntity<>("Project id is wrong!", HttpStatus.CONFLICT);
         }
+
+        projectReviewRepository.save(review);
+
         p.setProjectStatus(Project.ProjectStatus.FINISHED);
+        p.setProjectReview(review);
         projectRepository.save(p);
         return ResponseEntity.ok().build();
     }
