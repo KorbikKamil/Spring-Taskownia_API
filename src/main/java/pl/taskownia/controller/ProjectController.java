@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.taskownia.model.Project;
 import pl.taskownia.model.ProjectChat;
+import pl.taskownia.model.ProjectReview;
 import pl.taskownia.service.ProjectService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,9 +34,9 @@ public class ProjectController {
         return projectService.takeProject(r, projId);
     }
 
-    @PostMapping(path = "/finish", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> finishProject(@RequestParam Long projId, HttpServletRequest r) {
-        return projectService.finishProject(projId);
+    @PostMapping(path = "/{id}/finish", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> finishProject(@PathVariable Long id, @RequestBody ProjectReview review) {
+        return projectService.finishProject(id, review);
     }
 
     @GetMapping(path = "/my-author", produces = MediaType.APPLICATION_JSON_VALUE)

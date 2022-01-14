@@ -57,6 +57,10 @@ public class Project {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedAt;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "project_review_id", referencedColumnName = "id")
+    private ProjectReview projectReview;
+
     public enum ProjectStatus {
         NEW, IN_PROGRESS, FINISHED
     }
