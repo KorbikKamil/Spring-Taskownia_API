@@ -75,7 +75,7 @@ public class ProjectService {
         return ResponseEntity.ok().build();
     }
 
-    public List<Project> getAllProjects() { //TODO: get max 10-20-30 projects, not all
+    public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }
 

@@ -34,8 +34,6 @@ public class JwtTokenProvider {
     @Autowired
     private SecurityUserDetails secUserDetails;
 
-    //TODO: rewrite
-
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());

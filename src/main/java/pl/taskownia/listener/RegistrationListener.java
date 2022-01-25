@@ -59,7 +59,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationE
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setFrom(emailAddress);
-        email.setText(message + "\r\n" + httpType + "://" + serverAddress + confirmationUrl); //FIXME address of website and backend
+        email.setText(message + "\r\n" + httpType + "://" + serverAddress + confirmationUrl);
         System.out.println("3.5");
         javaMailSender.send(email);
         System.out.println("4");

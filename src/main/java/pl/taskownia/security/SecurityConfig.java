@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable(); //FIXME verify - disabled due to line below - CORS
+        http.csrf().disable();
         http.cors();
 
         // No session will be created or used by spring security
@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         // If a user try to access a resource without having enough permissions
-        http.exceptionHandling().accessDeniedPage("/"); //TODO: acessDeniedPage
+        http.exceptionHandling().accessDeniedPage("/");
 
         // Apply JWT
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));

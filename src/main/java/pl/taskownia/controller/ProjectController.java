@@ -19,7 +19,7 @@ public class ProjectController {
 
     private final ProjectService projectService;
 
-    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE) //TODO: get one page of projects
+    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Project> getProjects() {
         return projectService.getAllProjects();
     }

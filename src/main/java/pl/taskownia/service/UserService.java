@@ -43,7 +43,7 @@ public class UserService {
         try {
             User u = userRepository.findByUsername(uname);
             if (u.getEnabled() == false)
-                return new ResponseEntity<>("Account not enabled!", HttpStatus.NOT_ACCEPTABLE); //FIXME KORBAS USTAW LEPSZY KOD
+                return new ResponseEntity<>("Account not enabled!", HttpStatus.NOT_ACCEPTABLE);
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(uname, pass));
             String token = jwtTokenProvider.createToken(u.getId(),
                     uname, u.getRoles());
@@ -84,7 +84,6 @@ public class UserService {
             //return new ResponseEntity(jwtTokenProvider.createToken(u.getId(), u.getUsername(), u.getRoles()), HttpStatus.CREATED);
             return new ResponseEntity("Account created, confirm email address", HttpStatus.CREATED);
         } else {
-            //TODO if acc is not enabled, then register success
             return new ResponseEntity("Username is taken", HttpStatus.CONFLICT);
         }
     }
@@ -207,7 +206,7 @@ public class UserService {
         String fileExtension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         String newFilename = UUID.randomUUID().toString() + '.' + fileExtension;
 
-        u.getImage().setImage_path(newFilename); //TODO: verify
+        u.getImage().setImage_path(newFilename);
         userRepository.save(u);
         if (FileUploadUtil.uploadFile(newFilename, multipartFile)) {
             return ResponseEntity.ok("Image uploaded");

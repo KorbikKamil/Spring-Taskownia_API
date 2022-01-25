@@ -25,7 +25,7 @@ public class SecurityUserDetails implements UserDetailsService {
         return org.springframework.security.core.userdetails.User.withUsername(uname)
                 .password(user.getPassword())
                 .authorities(user.getRoles())
-                .accountExpired(false) //TODO: check rewrite
+                .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)
                 .disabled(false)

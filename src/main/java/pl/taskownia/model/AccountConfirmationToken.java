@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class AccountConfirmationToken {
     @Transient
-    private final int expirationTime = 1 * 24 * 60; //TODO remove from entity
+    private final int expirationTime = 1 * 24 * 60;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

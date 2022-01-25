@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')") //TODO: uncomment, but not working properly with ADMIN
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<User> showAll() {
         return userService.showAll();
     }
@@ -55,7 +55,7 @@ public class UserController {
         return userService.whoami(r);
     }
 
-    @GetMapping("/view/{id}") //FIXME: check if works
+    @GetMapping("/view/{id}")
     public User getOtherUserData(@PathVariable Long id) {
         return userService.getOtherUserData(id);
     }
@@ -70,16 +70,6 @@ public class UserController {
         return userService.confirmRegistration(token);
     }
 
-    /*
-    request.data[]
-    name, email, first_name, last_name, phone, birth_date, city, state, country, zip_code
-
-    personal_datas: first_name, last_name, phone, birth_date (+updated_at)
-    image: image_path
-    addresses: city, country, zip_code, state
-
-     */
-    //TODO: change personal image here or other request? For me other request
     @PostMapping("/update-data")
     public User updateData(HttpServletRequest r, @RequestBody UserDataUpdate userDataUpdate) {
         return userService.updateData(r, userDataUpdate);

@@ -20,7 +20,7 @@ public class FileUploadUtil {
 
     @Value("${app.file-uploads-path}")
     public void setFileUploadsPath(String fileUploadTemp) {
-        FileUploadUtil.fileUploadsPath = fileUploadTemp; //TODO not executing
+        FileUploadUtil.fileUploadsPath = fileUploadTemp;
     }
 
     public static Boolean uploadFile(String filename, MultipartFile multipartFile) {

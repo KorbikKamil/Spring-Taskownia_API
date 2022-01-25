@@ -15,7 +15,6 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandlerController {
-    //TODO: rewrite it - https://github.com/murraco/spring-boot-jwt/blob/master/src/main/java/murraco/exception/GlobalExceptionHandlerController.java
     @Bean
     public ErrorAttributes errorAttributes() {
         // Hide exception field in the return object
